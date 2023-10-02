@@ -1,18 +1,15 @@
-version: '3.9'
-
+version: '3.8'
 services:
-  springsecuritydemoapp:
-    build: .
-    container_name: spring-security-demo
+  db:
+    image: postgres:latest
+    restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/spring_security
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 1234qwer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
     ports:
-      - "8080:8080"
-    volumes:
-      - local_pgdata:/var/lib/postgresql/data
-
-
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
 volumes:
-  local_pgdata:
+  db:
+    driver: local
